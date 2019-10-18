@@ -15,7 +15,6 @@ jobs:
   release:
     name: Release this project
     needs: [ci]
-    if: github.ref == 'master'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
