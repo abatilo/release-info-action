@@ -1,6 +1,6 @@
-name: 'Latest Release Action'
+name: 'Release Info Action'
 author: 'Aaron Batilo'
-description: 'An action to read the latest release of a given GitHub repository'
+description: 'An action to read release information of a given GitHub repository'
 runs:
   using: 'docker'
   image: 'Dockerfile'
