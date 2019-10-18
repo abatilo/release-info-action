@@ -12,3 +12,19 @@ jobs:
       with:
         owner: abatilo
         repo: release-info-action
+  release:
+    name: Release this project
+    needs: [ci]
+    if: github.ref == 'master'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - uses: actions/setup-node@master
+      with:
+        node-version: 12
+    - name: Install
+      run: npm ci
+    - name: Generate release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: npm run semantic-release
