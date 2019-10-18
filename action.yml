@@ -17,3 +17,5 @@ inputs:
 outputs:
   latest_tag:
     description: 'The latest release version tag'
+  latest_tag_published_at:
+    description: 'The ISO8601 timestamp of when this version was released'
