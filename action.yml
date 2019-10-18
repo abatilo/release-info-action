@@ -1,0 +1,19 @@
+name: 'Latest Release Action'
+author: 'Aaron Batilo'
+description: 'An action to read the latest release of a given GitHub repository'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+branding:
+  icon: 'package'
+  color: 'gray-dark'
+inputs:
+  owner:
+    description: 'The user or org for this repo'
+    required: true
+  repo:
+    description: 'The name of the repo itself'
+    required: true
+outputs:
+  latest_tag:
+    description: 'The latest release version tag'
