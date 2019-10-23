@@ -30,3 +30,4 @@ jobs:
       run: |
         docker login docker.pkg.github.com --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
         docker build -t docker.pkg.github.com/abatilo/release-info-action/release-info-action:$TAG .
+        docker push docker.pkg.github.com/abatilo/release-info-action/release-info-action:$TAG
