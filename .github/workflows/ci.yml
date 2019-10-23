@@ -18,7 +18,7 @@ jobs:
     #   run: npx semantic-release
     - name: Get Latest Release
       id: latest_version
-      uses: abatilo/release-info-action/release-info-action:v1.1.0
+      uses: docker://docker.pkg.github.com/abatilo/release-info-action/release-info-action:v1.1.0
       with:
         owner: abatilo
         repo: release-info-action
