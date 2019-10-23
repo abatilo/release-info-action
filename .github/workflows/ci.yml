@@ -7,17 +7,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - name: Get Latest Release
-      uses: ./
-      with:
-        owner: abatilo
-        repo: release-info-action
-  release:
-    name: Release this project
-    needs: [ci]
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@master
       with:
         ref: master
     - uses: actions/setup-node@master
@@ -27,9 +16,17 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: npx semantic-release
+    - name: Get Latest Release
+      id: latest_version
+      uses: ./
+      with:
+        owner: abatilo
+        repo: release-info-action
     - name: Log in to registry
       env:
         DOCKER_USERNAME: ${{ github.actor }}
         DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+        TAG: ${{ steps.latest_version.outputs.latest_tag }}
       run: |
         docker login docker.pkg.github.com --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
+        docker build -t docker.pkg.github.com/abatilo/release-info-action/release-info-action:$TAG
