@@ -20,7 +20,6 @@ jobs:
       env:
         DOCKER_USERNAME: ${{ github.actor }}
         DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
-        TAG: ${{ steps.latest_version.outputs.latest_tag }}
       run: |
         docker login docker.pkg.github.com --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
     - name: Get Latest Release
@@ -31,8 +30,6 @@ jobs:
         repo: release-info-action
     - name: Push image
       env:
-        DOCKER_USERNAME: ${{ github.actor }}
-        DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
         TAG: ${{ steps.latest_version.outputs.latest_tag }}
       run: |
         docker build -t docker.pkg.github.com/abatilo/release-info-action/release-info-action:$TAG .
