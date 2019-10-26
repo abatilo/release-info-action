@@ -1,6 +1,5 @@
 # release-info-action
 [![Actions Status](https://github.com/abatilo/release-info-action/workflows/ci/badge.svg)](https://github.com/abatilo/release-info-action/actions)
-[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=abatilo/release-info-action)](https://dependabot.com)
 [![Latest
 release](https://img.shields.io/github/v/release/abatilo/release-info-action?include_prereleases)](https://github.com/abatilo/release-info-action/releases)
 [![License](https://img.shields.io/github/license/abatilo/release-info-action)](https://github.com/abatilo/release-info-action/blob/master/LICENSE)
