@@ -25,7 +25,7 @@ Example step
 ```
 - name: Get Latest Release
   id: latest_version
-  uses: abatilo/release-info-action@v1.1.0
+  uses: abatilo/release-info-action@v1.2.0
   with:
     owner: abatilo
     repo: release-info-action
@@ -46,7 +46,7 @@ jobs:
     - uses: actions/checkout@master
     - name: Get Latest Release
       id: latest_version
-      uses: abatilo/release-info-action@v1.1.0
+      uses: abatilo/release-info-action@v1.2.0
       with:
         owner: abatilo
         repo: release-info-action
