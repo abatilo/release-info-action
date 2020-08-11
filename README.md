@@ -19,6 +19,7 @@ Name | Description
 --- | ---
 latest_tag | The latest release version tag
 latest_tag_published_at | The ISO8601 timestamp of when this version was released
+target_commitish | Specifies the commitish value that determines where the Git tag is created from. Can be any branch or commit SHA.
 
 Example step
 ```
