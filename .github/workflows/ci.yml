@@ -6,28 +6,24 @@ jobs:
     name: Get Latest Release
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-      with:
-        ref: master
-    - uses: actions/setup-node@master
-      with:
-        node-version: 12
-    - name: Generate release
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: npx semantic-release
-    - name: Get Latest Release
-      id: latest_version
-      uses: ./
-      with:
-        owner: abatilo
-        repo: release-info-action
-    - name: Push image
-      env:
-        DOCKER_USERNAME: ${{ github.actor }}
-        DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
-        TAG: ${{ steps.latest_version.outputs.latest_tag }}
-      run: |
-        docker login docker.pkg.github.com --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
-        docker build -t docker.pkg.github.com/abatilo/release-info-action/release-info-action:$TAG .
-        docker push docker.pkg.github.com/abatilo/release-info-action/release-info-action:$TAG
+      - uses: actions/checkout@v2
+      - name: Generate release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release
+      - name: Get Latest Release
+        id: latest_version
+        uses: ./
+        with:
+          owner: abatilo
+          repo: release-info-action
+      - name: Push image
+        if: github.ref == 'refs/heads/master'
+        env:
+          DOCKER_USERNAME: ${{ github.actor }}
+          DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ steps.latest_version.outputs.latest_tag }}
+        run: |
+          docker login docker.pkg.github.com --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
+          docker build -t docker.pkg.github.com/abatilo/release-info-action/release-info-action:$TAG .
+          docker push docker.pkg.github.com/abatilo/release-info-action/release-info-action:$TAG
