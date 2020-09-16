@@ -1,21 +1,44 @@
-name: 'Release Info Action'
-author: 'Aaron Batilo'
-description: 'An action to read release information of a given GitHub repository'
-runs:
-  using: 'docker'
-  image: 'Dockerfile'
+name: "Release Info Action"
+author: "Aaron Batilo"
+description: "An action to read release information of a given GitHub repository"
 branding:
-  icon: 'package'
-  color: 'gray-dark'
+  icon: "package"
+  color: "gray-dark"
 inputs:
   owner:
-    description: 'The user or org for this repo'
+    description: "The user or org for this repo"
     required: true
   repo:
-    description: 'The name of the repo itself'
+    description: "The name of the repo itself"
     required: true
 outputs:
   latest_tag:
-    description: 'The latest release version tag'
+    description: "The latest release version tag"
+    value: ${{ steps.fetch-info.outputs.latest_tag }}
   latest_tag_published_at:
-    description: 'The ISO8601 timestamp of when this version was released'
+    description: "The ISO8601 timestamp of when this version was released"
+    value: ${{ steps.fetch-info.outputs.latest_tag_published_at }}
+  target_commitish:
+    description: "Specifies the commitish value that determines where the git tag is created from. Can be any branch or commit SHA."
+    value: ${{ steps.fetch-info.outputs.target_commitish }}
+runs:
+  using: "composite"
+  steps:
+    - id: fetch-info
+      shell: bash
+      run: |
+        owner="${{ inputs.owner }}"
+        repo="${{ inputs.repo }}"
+
+        release_json=$(curl https://api.github.com/repos/$owner/$repo/releases)
+        latest_tag=$(echo "$release_json" | jq -r '.[0].tag_name')
+        latest_tag_published_at=$(echo "$release_json" | jq -r '.[0].published_at')
+        target_commitish=$(echo "$release_json" | jq -r '.[0].target_commitish')
+
+        echo "latest_tag: $latest_tag"
+        echo "latest_tag_published_at: $latest_tag_published_at"
+        echo "target_commitish: $target_commitish"
+
+        echo ::set-output name=latest_tag::"$latest_tag"
+        echo ::set-output name=latest_tag_published_at::"$latest_tag_published_at"
+        echo ::set-output name=target_commitish::"$target_commitish"
