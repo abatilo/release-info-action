@@ -6,7 +6,7 @@ jobs:
     name: Get Latest Release
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2.4.0
+      - uses: actions/checkout@v3.1.0
       - name: Get Latest Release
         id: latest_version
         uses: abatilo/release-info-action@v1.3.0
