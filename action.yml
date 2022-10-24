@@ -39,6 +39,6 @@ runs:
         echo "latest_tag_published_at: $latest_tag_published_at"
         echo "target_commitish: $target_commitish"
 
-        echo ::set-output name=latest_tag::"$latest_tag"
-        echo ::set-output name=latest_tag_published_at::"$latest_tag_published_at"
-        echo ::set-output name=target_commitish::"$target_commitish"
+        echo "latest_tag=$latest_tag" >> $GITHUB_OUTPUT
+        echo "latest_tag_published_at=$latest_tag_published_at" >> $GITHUB_OUTPUT
+        echo "target_commitish=$target_commitish" >> $GITHUB_OUTPUT
