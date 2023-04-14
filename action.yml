@@ -27,6 +27,9 @@ runs:
     - id: fetch-info
       shell: bash
       run: |
+        set -o errexit
+        set -o pipefail
+        
         owner="${{ inputs.owner }}"
         repo="${{ inputs.repo }}"
 
