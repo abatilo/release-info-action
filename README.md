@@ -49,7 +49,7 @@ jobs:
       - uses: actions/checkout@master
       - name: Get Latest Release
         id: latest_version
-        uses: abatilo/release-info-action@v1.3.0
+        uses: abatilo/release-info-action@v1.3.3
         with:
           owner: abatilo
           repo: release-info-action
